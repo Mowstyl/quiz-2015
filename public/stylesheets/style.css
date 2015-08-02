@@ -8,4 +8,5 @@ body                 { font: 16px Georgia, serif; }
 section > div        { padding: 20px; }
 header, nav, section { background: #eee; text-align: center;}
 footer               { background: #eee; text-align: center;}
+table                { margin-left: auto; margin-right: auto;}
 nav span             { margin: 0px 10px 0px 0px;}
