@@ -1,4 +1,4 @@
-var models= require('../models/models.js');
+var models = require('../models/models.js');
 
 // Autoload :id
 exports.load = function(req, res, next, quizId) {
