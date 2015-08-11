@@ -29,6 +29,21 @@ app.use(session());
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Tiempo última acción
+app.use(function(req, res, next) {
+  if (req.session.user) {
+    var timemillis = (new Date).getTime(); // Momento en el que se ejecuta la función
+    var diffMil = timemillis - req.session.user.lastaction; // Milisegundos entre la última acción y esta
+	console.log('Tiempo desde última acción: ' + diffMil + ' ms');
+    req.session.user.lastaction = timemillis; // Se pone ésta como la última acción
+    if (diffMil>120000) { // En 2 minutos hay 120000 milisegundos
+      res.redirect('/logout');
+	  return; // Tras un res.redirect() no debemos pasar al siguiente middleware.
+    }
+  }
+  next(); // Pasa al siguiente middleware
+});
+
 // Helpers dinámicos:
 app.use(function(req, res, next) {
 
