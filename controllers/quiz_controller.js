@@ -68,17 +68,20 @@ exports.stats = function(req, res) {
             if (Comments[comm].publicado) {
               cms["num"]++;
               if (ids[i] !== Comments[comm].QuizId) {
-                if (typeof ids[i] !== 'undefined') {
-                  ids[i] = Comments[comm].QuizId;
-                  i++;
+                if ( i != 0) {
+                  if ( ids[i-1] !== Comments[comm].QuizId ) {
+                    ids[i] = Comments[comm].QuizId;
+                    i++;
+                  }
                 } else {
                   ids[i] = Comments[comm].QuizId;
+                  i++;
                 }
               }
             }
           }
           console.log(ids);
-          if (typeof ids[0] !== 'undefined') {
+          if (ids[0] !== 'undefined') {
             cms["no"] = cms["q"] - ids.length;
           } else {
             cms["no"] = cms["q"];
