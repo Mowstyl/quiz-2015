@@ -52,6 +52,39 @@ exports.author = function(req, res) {
   res.render('author', {errors: []});
 };
 
+// GET /quizes/statistics
+exports.stats = function(req, res) {
+  models.Quiz.findAll().then(
+    function(quizzes){
+      var cms = { q:0, num: 0, no: 0};
+      for (id in quizzes){
+        cms["q"]++;
+      }
+      models.Comment.findAll({order: 'QuizId'}).then(
+        function(Comments){
+          var ids = [undefined];
+          var i = 0;
+          for (comm in Comments) {
+            if (Comments[comm].publicado) {
+              cms["num"]++;
+              if (ids[i] !== Comments[comm].QuizId) {
+                ids[i] = Comments[comm].QuizId;
+                i++;
+              }
+            }
+          }
+          if (typeof ids[0] !== 'undefined') {
+            cms["no"] = cms["q"] - ids.length;
+          } else {
+            cms["no"] = cms["q"];
+          }
+          res.render('quizes/statistics', {cms: cms, errors: []});
+        }
+      ).catch(function(error) { next(error);});
+    }
+  ).catch(function(error) { next(error);});
+};
+
 // GET /quizes/new
 exports.new = function(req, res) {
   var quiz = models.Quiz.build( // crea objeto quiz

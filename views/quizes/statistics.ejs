@@ -1,0 +1,22 @@
+<table>
+    <tr>
+      <td>Número total de preguntas: </td>
+      <td><%= cms["q"] %></td>
+    </tr>
+    <tr>
+      <td>Número total de comentarios: </td>
+      <td><%= cms["num"] %></td>
+    </tr>
+    <tr>
+      <td>Media de comentarios por pregunta: </td>
+      <td><%= cms["num"]/cms["q"] %></td>
+    </tr>
+    <tr>
+      <td>Preguntas sin comentarios: </td>
+      <td><%= cms["no"] %></td>
+    </tr>
+    <tr>
+      <td>Preguntas con comentarios: </td>
+      <td><%= cms["q"]-cms["no"] %></td>
+    </tr>
+</table>
