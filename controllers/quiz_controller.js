@@ -60,7 +60,7 @@ exports.stats = function(req, res) {
       for (id in quizzes){
         cms["q"]++;
       }
-      models.Comment.findAll({order: "QuizId"}).then(
+      models.Comment.findAll({order: '"QuizId"'}).then(
         function(Comments){
           var ids = [undefined];
           var i = 0;
