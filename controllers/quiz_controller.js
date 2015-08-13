@@ -60,19 +60,24 @@ exports.stats = function(req, res) {
       for (id in quizzes){
         cms["q"]++;
       }
-      models.Comment.findAll({order: '"QuizId"'}).then(
+      models.Comment.findAll({order: '`QuizId`'}).then(
         function(Comments){
-          var ids = [undefined];
+          var ids = ['undefined'];
           var i = 0;
           for (comm in Comments) {
             if (Comments[comm].publicado) {
               cms["num"]++;
               if (ids[i] !== Comments[comm].QuizId) {
-                ids[i] = Comments[comm].QuizId;
-                i++;
+                if (typeof ids[i] !== 'undefined') {
+                  ids[i] = Comments[comm].QuizId;
+                  i++;
+                } else {
+                  ids[i] = Comments[comm].QuizId;
+                }
               }
             }
           }
+          console.log(ids);
           if (typeof ids[0] !== 'undefined') {
             cms["no"] = cms["q"] - ids.length;
           } else {
