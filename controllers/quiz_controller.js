@@ -80,9 +80,9 @@ exports.stats = function(req, res) {
           }
           res.render('quizes/statistics', {cms: cms, errors: []});
         }
-      ).catch(function(error) { next(error);});
+      );
     }
-  ).catch(function(error) { next(error);});
+  );
 };
 
 // GET /quizes/new
